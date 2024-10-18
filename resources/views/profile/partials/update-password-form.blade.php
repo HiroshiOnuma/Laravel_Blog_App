@@ -26,7 +26,7 @@
         </div>
 
         <div>
-            <x-input-label for="password_confirmation" :value="__('パスワードを認証する')" />
+            <x-input-label for="password_confirmation" :value="__('パスワード（確認用）')" />
             <x-text-input id="password_confirmation" name="password_confirmation" type="password" class="mt-1 block w-full" autocomplete="new-password" />
             <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" class="mt-2" />
         </div>
