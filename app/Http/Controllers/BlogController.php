@@ -24,6 +24,7 @@ class BlogController extends Controller
         $search = $request->search;
         $query = Post::search($search);
         $posts = $query->select('id', 'title', 'content', 'created_at')
+            ->orderBy('created_at', 'desc')
             ->paginate(15);
         return view('blogs.index', compact('posts'));
     }

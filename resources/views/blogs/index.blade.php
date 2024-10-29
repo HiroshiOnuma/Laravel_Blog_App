@@ -18,7 +18,6 @@
                                 <tr>
                                     <th class=" px-2 sm:px-4 py-3 title-font tracking-wider text-gray-900  bg-gray-100 rounded-tl rounded-bl">日時</th>
                                     <th class="px-2 sm:px-4 py-3 title-font tracking-wider text-gray-900  bg-gray-100">タイトル</th>
-
                                     <th class="px-2 sm:px-4 py-3 title-font tracking-wider text-gray-900  bg-gray-100">詳細</th>
                                 </tr>
                             </thead>
@@ -27,7 +26,6 @@
                                 <tr>
                                     <td class=" border-t-2 border-gray-200 px-2 sm:px-4 py-3">{{ $post->created_at->format('Y年m月d日 H時i分') }}</td>
                                     <td class=" border-t-2 border-gray-200 px-2 sm:px-4 py-3">{{ $post->title }}</td>
-
                                     <td class=" border-t-2 border-gray-200 px-2 sm:px-4 py-3"><a class="text-blue-800 font-bold" href="{{ route('blogs.show', ['id' => $post->id]) }}">詳細を見る</a></td>
                                 </tr>
                                 @endforeach
