@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\User;
 use App\Http\Requests\StorePostRequest;
+use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
 {
@@ -20,12 +22,19 @@ class BlogController extends Controller
         // ページネーション対応
         // $posts =  Post::select('id', 'title', 'content', 'created_at')->paginate(15);
 
+        // $posts = $query->select('id', 'title', 'content', 'created_at')
+        //     ->orderBy('created_at', 'desc')
+        //     ->paginate(15);
+        // return view('blogs.index', compact('posts'));
+
         // 検索対応
         $search = $request->search;
         $query = Post::search($search);
-        $posts = $query->select('id', 'title', 'content', 'created_at')
-            ->orderBy('created_at', 'desc')
+        // ログインユーザーの情報のみ参照する処理
+        $posts = $query->whereUserId(Auth::id())
+            ->select('id', 'user_id', 'title', 'content', 'created_at')->orderBy('created_at', 'desc')
             ->paginate(15);
+
         return view('blogs.index', compact('posts'));
     }
 
@@ -49,6 +58,7 @@ class BlogController extends Controller
     {
         // dd($request, $request->title);
         $post = Post::create([
+            'user_id' => Auth::id(),
             'title' => $request->title,
             'content' => $request->content,
         ]);
