@@ -10,11 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 class BlogController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         // $posts =  Post::select('id', 'title', 'content', 'created_at')->get();
