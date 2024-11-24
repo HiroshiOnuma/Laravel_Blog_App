@@ -15,6 +15,34 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    //
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            // dd($request->route()->parameter('id'));
+            // dd(Auth::id());
+
+            $id = $request->route()->parameter('id'); //postのid取得
+            if (!is_null($id)) { // null判定
+                $post = Post::find($id);
+
+                if(is_null($post)) {
+                    abort(404);
+                }
+                $postUserId = $post->user->id;
+
+                $userId = Auth::id();
+                if ($postUserId !== $userId) { // 同じでなかったら
+                    abort(404); // 404画面表示
+                }
+            }
+
+            return $next($request);
+        });
+    }
+    //
+
     public function index(Request $request)
     {
         // $posts =  Post::select('id', 'title', 'content', 'created_at')->get();
@@ -86,6 +114,7 @@ class BlogController extends Controller
      */
     public function edit($id)
     {
+
         $post = Post::find($id);
 
         return view('blogs.edit', compact('post'));
